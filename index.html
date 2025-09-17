@@ -1,110 +1,105 @@
++40
+-48
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Евгений - Саундпродюсер Композитор Саунддизайнер</title>
+    <title>Евгений — саундпродюсер, композитор и саунддизайнер</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header class="hero">
         <div class="hero-image">
-            <img src="https://pplx-res.cloudinary.com/image/upload/v1754891058/pplx_project_search_images/0561734b015142c0f752f619271d417e0dfcdb6a.png" alt="Neon Studio Setup" />
+            <img src="https://pplx-res.cloudinary.com/image/upload/v1754891058/pplx_project_search_images/0561734b015142c0f752f619271d417e0dfcdb6a.png" alt="Рабочее место саундпродюсера в неоновой подсветке" />
         </div>
         <div class="hero-content">
             <h1 class="hero-name">Евгений</h1>
-            <p class="hero-subtitle">Саундпродюсер Композитор Саунддизайнер</p>
+            <p class="hero-subtitle">Саундпродюсер, композитор и саунддизайнер. Создаю саундтрек, который усиливает историю и эмоции вашего проекта.</p>
+            <a class="hero-cta" href="#portfolio">Слушать работы</a>
         </div>
     </header>
 
-    <!-- Portfolio Section -->
-    <section class="portfolio">
-        <div class="container">
-            <!-- Category Buttons -->
-            <div class="category-buttons">
-                <button class="category-btn active" data-category="all">Все</button>
-                <button class="category-btn" data-category="Саунддизайн">Саунддизайн</button>
-                <button class="category-btn" data-category="Полный цикл">Полный цикл</button>
-                <button class="category-btn" data-category="Музыка">Музыка</button>
-            </div>
+    <main>
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Портфолио</h2>
+                    <div class="category-buttons">
+                        <button class="category-btn active" data-category="all">Все</button>
+                        <button class="category-btn" data-category="Саунддизайн">Саунддизайн</button>
+                        <button class="category-btn" data-category="Полный цикл">Полный цикл</button>
+                        <button class="category-btn" data-category="Музыка">Музыка</button>
+                    </div>
+                </div>
 
-            <!-- Portfolio Gallery -->
-            <div class="portfolio-gallery">
-                <div class="portfolio-track" id="portfolioTrack">
+                <div class="portfolio-gallery">
                     <div class="portfolio-item" data-categories="Полный цикл,Музыка" data-video="placeholder_video1.mp4">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/100fb778d6c11555747a051d85aa67f8b66cca8e.png" alt="Studio Setup" />
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/100fb778d6c11555747a051d85aa67f8b66cca8e.png" alt="Профессиональная студия звукозаписи" />
                         <div class="portfolio-overlay">
                             <div class="play-button">▶</div>
                         </div>
                     </div>
                     <div class="portfolio-item" data-categories="Полный цикл,Музыка" data-video="placeholder_video2.mp4">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1754691286/pplx_project_search_images/f763232b51fdeda85a88de2a5389158c1bf725d3.png" alt="Home Studio" />
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1754691286/pplx_project_search_images/f763232b51fdeda85a88de2a5389158c1bf725d3.png" alt="Домашняя студия и синтезаторы" />
                         <div class="portfolio-overlay">
                             <div class="play-button">▶</div>
                         </div>
                     </div>
                     <div class="portfolio-item" data-categories="Саунддизайн,Музыка" data-video="placeholder_video3.mp4">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/cb9f2ff0306d0f10719aa2d4ba7e85785ef101ef.png" alt="Mixing Console" />
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/cb9f2ff0306d0f10719aa2d4ba7e85785ef101ef.png" alt="Микшерный пульт с подсветкой" />
                         <div class="portfolio-overlay">
                             <div class="play-button">▶</div>
                         </div>
                     </div>
                     <div class="portfolio-item" data-categories="Саунддизайн" data-video="placeholder_video4.mp4">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/aaf4f374ad64c376ca73b911429286f6a6504f81.png" alt="Professional Studio" />
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/aaf4f374ad64c376ca73b911429286f6a6504f81.png" alt="Работа со звуком в цифровой станции" />
                         <div class="portfolio-overlay">
                             <div class="play-button">▶</div>
                         </div>
                     </div>
                     <div class="portfolio-item" data-categories="Полный цикл" data-video="placeholder_video5.mp4">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/9f1fc45c916349cdc55202cf30886898cce6a8f2.png" alt="Post Production" />
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/9f1fc45c916349cdc55202cf30886898cce6a8f2.png" alt="Монтаж и постпродакшн" />
                         <div class="portfolio-overlay">
                             <div class="play-button">▶</div>
                         </div>
                     </div>
                     <div class="portfolio-item" data-categories="Саунддизайн" data-video="placeholder_video6.mp4">
-                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/12bda83ae30245ad228321ebafc592b9f4089bd2.png" alt="Recording Session" />
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1758104404/pplx_project_search_images/12bda83ae30245ad228321ebafc592b9f4089bd2.png" alt="Запись вокала в студии" />
                         <div class="portfolio-overlay">
                             <div class="play-button">▶</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section class="contact">
-        <div class="container">
-            <div class="contact-content">
+        <section class="contact">
+            <div class="contact-card">
                 <div class="contact-avatar">
-                    <img src="https://pplx-res.cloudinary.com/image/upload/v1758104423/pplx_project_search_images/ffd2698eef17a37f88bb69cd6849f9fb340b5e5c.png" alt="Евгений" />
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1758104423/pplx_project_search_images/ffd2698eef17a37f88bb69cd6849f9fb340b5e5c.png" alt="Портрет Евгения" />
                 </div>
-                <p class="contact-text">Напишите мне в Телеграм, и мы обсудим ваш проект</p>
-                <a href="https://t.me/nikitasinopalnikov" target="_blank" class="telegram-btn">
+                <p class="contact-text">Напишите мне в Телеграм, и мы обсудим детали вашего проекта</p>
+                <a href="https://t.me/nikitasinopalnikov" target="_blank" rel="noopener" class="telegram-btn">
                     <span class="telegram-icon">📱</span>
                     Написать в Телеграм
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Video Modal -->
     <div id="videoModal" class="modal hidden">
-        <div class="modal-overlay">
-            <div class="modal-content">
-                <button class="modal-close">&times;</button>
-                <div class="video-placeholder">
-                    <div class="video-placeholder-content">
-                        <h3>Видеоплеер</h3>
-                        <p>Здесь будет воспроизводиться видео</p>
-                        <div class="fake-video">
-                            <div class="play-icon">▶</div>
-                        </div>
-                    </div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Закрыть окно">&times;</button>
+            <div class="video-placeholder">
+                <h3>Видеоплеер</h3>
+                <p>Здесь будет воспроизводиться выбранная работа</p>
+                <div class="fake-video">
+                    <div class="play-icon">▶</div>
                 </div>
             </div>
         </div>
