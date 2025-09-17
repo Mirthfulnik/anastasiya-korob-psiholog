@@ -1,232 +1,108 @@
-// Portfolio and modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Get DOM elements
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    const portfolioTrack = document.getElementById('portfolioTrack');
-    const modal = document.getElementById('videoModal');
-    const modalClose = document.querySelector('.modal-close');
-    const modalOverlay = document.querySelector('.modal-overlay');
++93
+-220
 
-    // Duplicate portfolio items for seamless scrolling
-    function duplicatePortfolioItems() {
-        const originalItems = Array.from(portfolioItems);
-        originalItems.forEach(item => {
-            const clone = item.cloneNode(true);
-            portfolioTrack.appendChild(clone);
-        });
-        
-        // Add event listeners to cloned items
-        const allItems = document.querySelectorAll('.portfolio-item');
-        allItems.forEach(item => {
-            item.addEventListener('click', openVideoModal);
-        });
-    }
+// Фильтрация портфолио и модальное окно
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  const modal = document.getElementById('videoModal');
+  const modalClose = modal.querySelector('.modal-close');
 
-    // Initialize duplicated items
-    duplicatePortfolioItems();
+  // Фильтрация работ
+  function filterPortfolio(category) {
+    portfolioItems.forEach((item) => {
+      const itemCategories = item.getAttribute('data-categories');
+      const shouldShow = category === 'all' || itemCategories.includes(category);
 
-    // Category filtering
-    function filterPortfolio(category) {
-        const allItems = document.querySelectorAll('.portfolio-item');
-        
-        allItems.forEach(item => {
-            const itemCategories = item.getAttribute('data-categories');
-            
-            if (category === 'all' || itemCategories.includes(category)) {
-                item.style.display = 'block';
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-            } else {
-                item.style.opacity = '0';
-                item.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                    if (!itemCategories.includes(category) && category !== 'all') {
-                        item.style.display = 'none';
-                    }
-                }, 300);
-            }
-        });
+      item.style.pointerEvents = shouldShow ? 'auto' : 'none';
+      item.style.opacity = shouldShow ? '1' : '0';
+      item.style.transform = shouldShow ? 'translateY(0)' : 'translateY(20px)';
+      item.style.transition = 'opacity 220ms ease, transform 320ms ease';
 
-        // Restart animation after filtering
+      if (shouldShow) {
+        item.style.display = 'block';
+      } else {
         setTimeout(() => {
-            portfolioTrack.style.animation = 'none';
-            portfolioTrack.offsetHeight; // Trigger reflow
-            portfolioTrack.style.animation = 'scroll 20s linear infinite';
-        }, 300);
-    }
-
-    // Category button click handlers
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Filter portfolio
-            const category = this.getAttribute('data-category');
-            filterPortfolio(category);
-        });
+          item.style.display = 'none';
+        }, 220);
+      }
     });
+  }
 
-    // Open video modal
-    function openVideoModal(e) {
-        e.preventDefault();
-        const videoUrl = this.getAttribute('data-video');
-        
-        // Add some visual feedback
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            this.style.transform = '';
-        }, 150);
+  categoryButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      categoryButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
 
-        // Show modal with animation
-        modal.classList.remove('hidden');
-        modal.style.opacity = '0';
-        modal.style.transform = 'scale(0.8)';
-        
-        setTimeout(() => {
-            modal.style.transition = 'all 0.3s ease';
-            modal.style.opacity = '1';
-            modal.style.transform = 'scale(1)';
-        }, 10);
+      const category = button.getAttribute('data-category');
+      filterPortfolio(category);
+    });
+  });
 
-        // Pause the scrolling animation when modal is open
-        portfolioTrack.style.animationPlayState = 'paused';
+  // Работа модального окна
+  const openVideoModal = (event) => {
+    event.preventDefault();
+    modal.classList.remove('hidden');
+    modal.style.opacity = '0';
+
+    requestAnimationFrame(() => {
+      modal.style.transition = 'opacity 220ms ease';
+      modal.style.opacity = '1';
+    });
+  };
+
+  const closeVideoModal = () => {
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.style.transition = '';
+    }, 220);
+  };
+
+  portfolioItems.forEach((item) => {
+    item.addEventListener('click', openVideoModal);
+  });
+
+  modalClose.addEventListener('click', closeVideoModal);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      closeVideoModal();
     }
+  });
 
-    // Close video modal
-    function closeVideoModal() {
-        modal.style.transition = 'all 0.3s ease';
-        modal.style.opacity = '0';
-        modal.style.transform = 'scale(0.8)';
-        
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            modal.style.transition = '';
-        }, 300);
-
-        // Resume the scrolling animation
-        portfolioTrack.style.animationPlayState = 'running';
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeVideoModal();
     }
+  });
 
-    // Modal event listeners
-    modalClose.addEventListener('click', closeVideoModal);
-    modalOverlay.addEventListener('click', closeVideoModal);
+  // Плавный скролл к портфолио
+  const heroCta = document.querySelector('.hero-cta');
+  if (heroCta) {
+    heroCta.addEventListener('click', (event) => {
+      event.preventDefault();
+      const portfolioSection = document.getElementById('portfolio');
+      portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 
-    // Close modal on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-            closeVideoModal();
+  // Небольшая анимация появления секций
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
         }
-    });
+      });
+    },
+    { threshold: 0.2, rootMargin: '0px 0px -15%' }
+  );
 
-    // Portfolio item click handlers (for original items)
-    portfolioItems.forEach(item => {
-        item.addEventListener('click', openVideoModal);
-    });
-
-    // Smooth scroll for better UX
-    function smoothScrollTo(element) {
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-
-    // Add hover effects to category buttons
-    categoryButtons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-
-    // Telegram button interaction
-    const telegramBtn = document.querySelector('.telegram-btn');
-    if (telegramBtn) {
-        telegramBtn.addEventListener('click', function(e) {
-            // Add click effect
-            this.style.transform = 'translateY(-3px) scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = 'translateY(-3px) scale(1)';
-            }, 150);
-        });
-    }
-
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Observe sections for scroll animations
-    const sections = document.querySelectorAll('.portfolio, .contact');
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'all 0.8s ease';
-        observer.observe(section);
-    });
-
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const heroImage = document.querySelector('.hero-image img');
-        if (heroImage) {
-            heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
-        }
-    });
-
-    // Add glow effect to hero name on mouse move
-    const heroName = document.querySelector('.hero-name');
-    if (heroName) {
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const { innerWidth, innerHeight } = window;
-            
-            const xPercent = (clientX / innerWidth) * 100;
-            const yPercent = (clientY / innerHeight) * 100;
-            
-            heroName.style.textShadow = `
-                ${xPercent / 10}px ${yPercent / 10}px 30px rgba(0, 243, 255, 0.5),
-                ${-xPercent / 20}px ${-yPercent / 20}px 60px rgba(176, 0, 255, 0.3)
-            `;
-        });
-    }
-
-    // Performance optimization: Reduce animation on slower devices
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReducedMotion.matches) {
-        const animatedElements = document.querySelectorAll('[style*="animation"]');
-        animatedElements.forEach(el => {
-            el.style.animation = 'none';
-        });
-    }
-
-    // Add loading animation
-    window.addEventListener('load', () => {
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(() => {
-            document.body.style.opacity = '1';
-        }, 100);
-    });
-
-    console.log('Portfolio app initialized successfully!');
+  document.querySelectorAll('.portfolio .container, .contact-card').forEach((section) => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(35px)';
+    section.style.transition = 'opacity 480ms ease, transform 600ms ease';
+    observer.observe(section);
+  });
 });
